@@ -1,4 +1,37 @@
-# React + TypeScript + Vite
+# Component Library
+
+React component library (Sidebar, etc.) built with TypeScript and Vite.
+
+## Using this library in another repo
+
+1. **Install from Git**
+   ```bash
+   npm install git+https://github.com/cw-dbhingradiya/component-library
+   ```
+
+2. **Import components and types**
+   ```tsx
+   import { Sidebar, type SidebarTab, type TabId } from 'component-library';
+   ```
+
+3. **Import styles (required for Tailwind styles)**
+   ```tsx
+   import 'component-library/style.css';
+   // or
+   import 'component-library/dist/style.css';
+   ```
+
+4. **Example usage**
+   ```tsx
+   const tabs: SidebarTab[] = [{ id: 'home', label: 'Home' }, { id: 'settings', label: 'Settings' }];
+   <Sidebar tabs={tabs} activeTabId="home" onTabClick={(id) => setActiveTabId(id)} />
+   ```
+
+The consuming app must have `react` and `react-dom` installed (peer dependencies).
+
+---
+
+## Development (this repo)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
