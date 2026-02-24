@@ -4,21 +4,21 @@ React component library (Sidebar, etc.) built with TypeScript and Vite.
 
 ## Using this library in another repo
 
-1. **Install from Git**
+1. **Install**
    ```bash
-   npm install git+https://github.com/cw-dbhingradiya/component-library
+   npm install @cw-dbhingradiya/component-library
    ```
 
 2. **Import components and types**
    ```tsx
-   import { Sidebar, type SidebarTab, type TabId } from 'component-library';
+   import { Sidebar, type SidebarTab, type TabId } from '@cw-dbhingradiya/component-library';
    ```
 
 3. **Import styles (required for Tailwind styles)**
    ```tsx
-   import 'component-library/style.css';
+   import '@cw-dbhingradiya/component-library/style.css';
    // or
-   import 'component-library/dist/style.css';
+   import '@cw-dbhingradiya/component-library/dist/style.css';
    ```
 
 4. **Example usage**
@@ -28,6 +28,17 @@ React component library (Sidebar, etc.) built with TypeScript and Vite.
    ```
 
 The consuming app must have `react` and `react-dom` installed (peer dependencies).
+
+---
+
+## Publishing to npm
+
+1. **Build**: Run `npm run build:lib` (also runs automatically on `npm publish` via `prepublishOnly`).
+2. **Login**: `npm login` (one-time).
+3. **Publish**: `npm publish`
+
+After publishing, consumers can install with:
+`npm install @cw-dbhingradiya/component-library`
 
 ---
 
