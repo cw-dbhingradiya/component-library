@@ -57,7 +57,7 @@ function App() {
         tabs={SIDEBAR_TABS}
         activeTabId={activeTabId}
         onTabClick={setActiveTabId}
-        className="bg-brand-dark"
+        className="bg-black"
       />
       <main className="flex-1 overflow-auto p-6">
         <TabContent tabId={activeTabId} />
