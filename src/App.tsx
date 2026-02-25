@@ -1,55 +1,21 @@
 import { useState } from "react";
 
 import { Sidebar, type SidebarTab, type TabId } from "./components/Sidebar";
-
-const SIDEBAR_TABS: SidebarTab[] = [
-  { id: "overview", label: "Overview" },
-  { id: "components", label: "Components" },
-  { id: "settings", label: "Settings" },
-];
+import { TAB_CONTENT_MAP } from "./pages";
 
 /**
- * Content shown for each tab. In a real app this could be separate components or routes.
+ * Derive sidebar tabs from TAB_CONTENT_MAP so adding a new component page
+ * only requires a new file in src/pages and a single entry in the map.
  */
-function TabContent({ tabId }: { tabId: TabId }) {
-  switch (tabId) {
-    case "overview":
-      return (
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-gray-900">Overview</h2>
-          <p className="text-gray-600">
-            Welcome to the overview. This content changes when you click a
-            different tab in the sidebar.
-          </p>
-        </div>
-      );
-    case "components":
-      return (
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-gray-900">Components</h2>
-          <p className="text-gray-600">
-            Component library content. Add or edit tabs in App to show more
-            sections here.
-          </p>
-        </div>
-      );
-    case "settings":
-      return (
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-gray-900">Settings</h2>
-          <p className="text-gray-600">
-            Settings and preferences. Right-side content updates based on the
-            selected sidebar tab.
-          </p>
-        </div>
-      );
-    default:
-      return <p className="text-gray-500">Select a tab from the sidebar.</p>;
-  }
-}
+const SIDEBAR_TABS: SidebarTab[] = Object.entries(TAB_CONTENT_MAP).map(
+  ([id, { title }]) => ({ id, label: title }),
+);
 
 function App() {
   const [activeTabId, setActiveTabId] = useState<TabId>(SIDEBAR_TABS[0].id);
+
+  const activeEntry = TAB_CONTENT_MAP[activeTabId];
+  const PageComponent = activeEntry?.component;
 
   return (
     <div className="flex min-h-screen bg-white">
@@ -59,8 +25,17 @@ function App() {
         onTabClick={setActiveTabId}
         className="bg-black"
       />
-      <main className="flex-1 overflow-auto p-6">
-        <TabContent tabId={activeTabId} />
+      <main className="flex-1 overflow-auto p-8 h-[calc(100vh-0px)]">
+        {PageComponent ? (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-semibold text-gray-900">
+              {activeEntry.title}
+            </h2>
+            <PageComponent />
+          </div>
+        ) : (
+          <p className="text-gray-500">Select a component from the sidebar.</p>
+        )}
       </main>
     </div>
   );
