@@ -28,4 +28,21 @@ export {
   type BadgeWithButtonProps,
   type BadgeWithImageProps,
 } from "./components/Badge/Badge";
+export {
+  Input,
+  InputGroup,
+  type InputProps,
+  type InputGroupProps,
+  type InputSize,
+} from "./components/Input/Input";
+export {
+  Select,
+  SelectWithSearch,
+  SelectWithTags,
+  type SelectSize,
+  type SelectOption,
+  type SelectProps,
+  type SelectWithSearchProps,
+  type SelectWithTagsProps,
+} from "./components/Select/Select";
 export { Sidebar, type SidebarTab, type TabId } from "./components/Sidebar";
