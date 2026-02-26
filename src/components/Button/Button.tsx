@@ -12,6 +12,8 @@ const buttonVariants = {
     "bg-transparent text-brand hover:text-brand-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
   "link-gray":
     "bg-transparent text-gray-600 hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400",
+  "primary-dark":
+    "bg-white text-[#0A0A0A] shadow-sm hover:bg-neutral-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white",
   "primary-destructive":
     "bg-red-600 text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600",
   "secondary-destructive":
@@ -77,7 +79,7 @@ function Button({
 }: ButtonProps) {
   const disabledState = isDisabled || disabled || isLoading;
   const base =
-    "inline-flex items-center justify-center font-medium transition-colors disabled:pointer-events-none disabled:opacity-50";
+    "cursor-pointer inline-flex items-center justify-center font-medium transition-colors disabled:pointer-events-none disabled:opacity-50";
 
   const content = (
     <>

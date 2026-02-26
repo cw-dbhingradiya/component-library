@@ -1,6 +1,12 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import LoginModal, { type AuthUser } from "./LoginModal";
+import { LogOut } from "lucide-react";
+import LoginModal from "./LoginModal";
+import {
+  type AuthUser,
+  getSessionUser,
+  setSessionUser,
+} from "../../../lib/utils/auth";
 
 const NAV_LINKS = ["Home", "Collection", "About", "Contact"];
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -32,7 +38,8 @@ function ProfileDropdown({
   useEffect(() => {
     if (!open) return;
     const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node))
+        setOpen(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -63,7 +70,9 @@ function ProfileDropdown({
           >
             {/* User info */}
             <div className="border-b border-neutral-800 px-4 py-3">
-              <p className="truncate text-sm font-medium text-white">{user.name}</p>
+              <p className="truncate text-sm font-medium text-white">
+                {user.name}
+              </p>
               <p className="truncate text-xs text-neutral-400">{user.email}</p>
             </div>
 
@@ -76,19 +85,7 @@ function ProfileDropdown({
               }}
               className="flex w-full items-center gap-2.5 px-4 py-3 text-sm text-neutral-300 transition-colors hover:bg-neutral-800 hover:text-white"
             >
-              <svg
-                className="size-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
-                />
-              </svg>
+              <LogOut className="size-4" />
               Logout
             </button>
           </motion.div>
@@ -101,7 +98,7 @@ function ProfileDropdown({
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
-  const [user, setUser] = useState<AuthUser | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(() => getSessionUser());
 
   const openLogin = useCallback(() => {
     setLoginOpen(true);
@@ -113,6 +110,7 @@ export default function Navbar() {
   }, []);
 
   const handleLogout = useCallback(() => {
+    setSessionUser(null);
     setUser(null);
   }, []);
 
@@ -166,7 +164,7 @@ export default function Navbar() {
                 transition={{ duration: 0.5, ease: EASE, delay: 0.8 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="rounded-lg border border-neutral-700 bg-white px-5 py-1.5 text-sm font-medium text-[#0A0A0A] transition-colors duration-300 hover:bg-neutral-200"
+                className="cursor-pointer rounded-lg border border-neutral-700 bg-white px-5 py-1.5 text-sm font-medium text-[#0A0A0A] transition-colors duration-300 hover:bg-neutral-200"
               >
                 Login
               </motion.button>
@@ -193,16 +191,25 @@ export default function Navbar() {
               className="flex flex-col gap-1.5"
               aria-label="Toggle menu"
             >
-              <span className={`block h-0.5 w-6 bg-white transition-transform duration-300 ${mobileOpen ? "translate-y-2 rotate-45" : ""}`} />
-              <span className={`block h-0.5 w-6 bg-white transition-opacity duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
-              <span className={`block h-0.5 w-6 bg-white transition-transform duration-300 ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`} />
+              <span
+                className={`block h-0.5 w-6 bg-white transition-transform duration-300 ${mobileOpen ? "translate-y-2 rotate-45" : ""}`}
+              />
+              <span
+                className={`block h-0.5 w-6 bg-white transition-opacity duration-300 ${mobileOpen ? "opacity-0" : ""}`}
+              />
+              <span
+                className={`block h-0.5 w-6 bg-white transition-transform duration-300 ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`}
+              />
             </button>
           </div>
         </div>
 
         <motion.div
           initial={false}
-          animate={{ height: mobileOpen ? "auto" : 0, opacity: mobileOpen ? 1 : 0 }}
+          animate={{
+            height: mobileOpen ? "auto" : 0,
+            opacity: mobileOpen ? 1 : 0,
+          }}
           transition={{ duration: 0.4, ease: EASE }}
           className="overflow-hidden border-t border-neutral-800/50 bg-[#0A0A0A] md:hidden"
         >

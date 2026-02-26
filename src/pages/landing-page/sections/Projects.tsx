@@ -59,7 +59,7 @@ export default function ProjectsSection() {
         >
           <SectionHeader
             label="Featured Collections"
-            labelJp="コレクション"
+            labelJp="Collection"
             number="03"
             category="Furniture Design"
           />

@@ -44,7 +44,7 @@ export default function ServicesSection() {
         >
           <SectionHeader
             label="Our Craft"
-            labelJp="手仕事"
+            labelJp="Handcraft"
             number="04"
             category="What We Do"
           />
