@@ -1,6 +1,8 @@
 import type { ComponentType } from "react";
 import ButtonPage from "./ButtonPage";
 import BadgePage from "./BadgePage";
+import InputPage from "./InputPage";
+import SelectPage from "./SelectPage";
 
 export interface TabPageEntry {
   title: string;
@@ -16,4 +18,6 @@ export interface TabPageEntry {
 export const TAB_CONTENT_MAP: Record<string, TabPageEntry> = {
   button: { title: "Button", component: ButtonPage },
   badge: { title: "Badge", component: BadgePage },
+  input: { title: "Input", component: InputPage },
+  select: { title: "Select", component: SelectPage },
 };

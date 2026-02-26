@@ -5,26 +5,40 @@ React component library (Sidebar, etc.) built with TypeScript and Vite.
 ## Using this library in another repo
 
 1. **Install**
+
    ```bash
    npm install @cw-dbhingradiya/component-library
    ```
 
 2. **Import components and types**
+
    ```tsx
-   import { Sidebar, type SidebarTab, type TabId } from '@cw-dbhingradiya/component-library';
+   import {
+     Sidebar,
+     type SidebarTab,
+     type TabId,
+   } from "@cw-dbhingradiya/component-library";
    ```
 
 3. **Import styles (required for Tailwind styles)**
+
    ```tsx
-   import '@cw-dbhingradiya/component-library/style.css';
+   import "@cw-dbhingradiya/component-library/style.css";
    // or
-   import '@cw-dbhingradiya/component-library/dist/style.css';
+   import "@cw-dbhingradiya/component-library/dist/style.css";
    ```
 
 4. **Example usage**
    ```tsx
-   const tabs: SidebarTab[] = [{ id: 'home', label: 'Home' }, { id: 'settings', label: 'Settings' }];
-   <Sidebar tabs={tabs} activeTabId="home" onTabClick={(id) => setActiveTabId(id)} />
+   const tabs: SidebarTab[] = [
+     { id: "home", label: "Home" },
+     { id: "settings", label: "Settings" },
+   ];
+   <Sidebar
+     tabs={tabs}
+     activeTabId="home"
+     onTabClick={(id) => setActiveTabId(id)}
+   />;
    ```
 
 The consuming app must have `react` and `react-dom` installed (peer dependencies).
@@ -61,9 +75,9 @@ If you are developing a production application, we recommend updating the config
 
 ```js
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
 
@@ -78,40 +92,40 @@ export default defineConfig([
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
       // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
+      reactX.configs["recommended-typescript"],
       // Enable lint rules for React DOM
       reactDom.configs.recommended,
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
+]);
 ```
