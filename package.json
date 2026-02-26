@@ -1,15 +1,15 @@
 {
   "name": "@cw-dbhingradiya/component-library",
   "private": false,
-  "version": "3.2.7",
+  "version": "3.2.8",
   "type": "module",
   "main": "./dist/component-library.js",
   "module": "./dist/component-library.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/component-library.js",
       "types": "./dist/index.d.ts",
+      "import": "./dist/component-library.js",
       "default": "./dist/component-library.js"
     },
     "./dist/style.css": "./dist/index.css",
