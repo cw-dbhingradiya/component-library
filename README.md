@@ -129,5 +129,3 @@ export default defineConfig([
   },
 ]);
 ```
-
-Hello
