@@ -50,7 +50,7 @@ export default function ExperienceSection() {
         >
           <SectionHeader
             label="Our Journey"
-            labelJp="歴史"
+            labelJp="History"
             number="06"
             category="Milestones"
           />

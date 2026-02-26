@@ -44,7 +44,7 @@ export default function AwardsSection() {
         >
           <SectionHeader
             label="Recognition"
-            labelJp="受賞歴"
+            labelJp="Awards"
             number="08"
             category="Awards"
           />
@@ -76,7 +76,7 @@ export default function AwardsSection() {
           >
             <div className="aspect-[4/3] w-full max-w-sm overflow-hidden rounded-2xl bg-neutral-900">
               <img
-                src="https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=600&q=80"
+                src="/furniture/furniture_05.jpg"
                 alt="Award-winning furniture design piece"
                 className="h-full w-full object-cover"
                 loading="lazy"

@@ -68,7 +68,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Alder&Co. All rights reserved.
           </p>
           <p className="text-xs text-neutral-700">
-            Crafted with care in Copenhagen 家具
+            Crafted with care in Copenhagen
           </p>
         </motion.div>
       </div>

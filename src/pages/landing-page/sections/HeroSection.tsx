@@ -12,7 +12,7 @@ export default function HeroSection() {
       {/* Hero background image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1920&q=80"
+          src="/furniture/furniture_07.jpg"
           alt="Modern living room with designer sofa"
           className="h-full w-full object-cover opacity-30"
         />
@@ -47,7 +47,8 @@ export default function HeroSection() {
           Way You Live
           <br />
           <span className="text-white">
-            Every Day <span className="font-light text-neutral-400">家具.</span>
+            Every Day{" "}
+            <span className="font-light text-neutral-400">Furniture.</span>
           </span>
         </motion.h1>
 
@@ -58,7 +59,7 @@ export default function HeroSection() {
           className="mt-16 flex items-end justify-between border-t border-neutral-800 pt-6"
         >
           <p className="text-xs tracking-widest text-neutral-600 uppercase">
-            Based in Copenhagen コペンハーゲン
+            Based in Copenhagen
           </p>
           <p className="text-xs tracking-widest text-neutral-600 uppercase">
             Furniture Design Studio

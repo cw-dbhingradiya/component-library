@@ -60,7 +60,7 @@ export default function PricingSection() {
         >
           <SectionHeader
             label="Design Packages"
-            labelJp="プラン"
+            labelJp="Plans"
             number="09"
             category="Pricing"
           />

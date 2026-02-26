@@ -21,7 +21,7 @@ const IMAGES = [
     span: "",
   },
   {
-    src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=400&q=80",
+    src: "/furniture/furniture_06.jpg",
     alt: "Finished furniture in sunlit room",
     span: "",
   },
@@ -39,7 +39,7 @@ export default function ProfileSection() {
         >
           <SectionHeader
             label="Our Philosophy"
-            labelJp="素材"
+            labelJp="Materials"
             number="05"
             category="Craftsmanship"
           />

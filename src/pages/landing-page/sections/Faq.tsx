@@ -46,7 +46,7 @@ export default function FaqSection() {
         >
           <SectionHeader
             label="Common Questions"
-            labelJp="よくある質問"
+            labelJp="FAQ"
             number="11"
             category="FAQ"
           />

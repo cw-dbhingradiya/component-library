@@ -60,7 +60,7 @@ export default function BlogSection() {
         >
           <SectionHeader
             label="Design Journal"
-            labelJp="ジャーナル"
+            labelJp="Journal"
             number="10"
             category="Insights"
           />

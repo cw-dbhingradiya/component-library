@@ -73,7 +73,7 @@ export default function TestimonialsSection() {
         >
           <SectionHeader
             label="Testimonials"
-            labelJp="お客様の声"
+            labelJp="Voices"
             number="07"
             category="Happy Homes"
           />

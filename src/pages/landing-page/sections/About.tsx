@@ -9,19 +9,19 @@ const VIEWPORT = { once: true, amount: 0.15 };
 
 const IMAGES = [
   {
-    src: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+    src: "/furniture/furniture_01.jpg",
     alt: "Modern sofa in living room",
   },
   {
-    src: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&fit=crop&w=400&q=80",
+    src: "/furniture/furniture_02.jpg",
     alt: "Minimalist interior design",
   },
   {
-    src: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=400&q=80",
+    src: "/furniture/furniture_03.jpg",
     alt: "Styled living space",
   },
   {
-    src: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=400&q=80",
+    src: "/furniture/furniture_04.jpg",
     alt: "Modern furniture detail",
   },
 ];
@@ -47,7 +47,7 @@ export default function AboutSection() {
         >
           <Header
             label="Curated Interiors"
-            labelJp="インテリア"
+            labelJp="Interior"
             number="02"
             category="Furniture Design"
           />
