@@ -4,3 +4,41 @@
   --color-brand: #144d8b;
   --color-brand-dark: #0f3b6d;
 }
+
+/* ─── Lenis Smooth Scroll (root mode) ─── */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling {
+  overflow: clip;
+}
+
+/* ─── Marquee Animation ─── */
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.anim-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.anim-marquee-slow {
+  animation: marquee 45s linear infinite;
+}
