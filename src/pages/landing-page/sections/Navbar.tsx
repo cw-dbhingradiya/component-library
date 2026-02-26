@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { LogOut } from "lucide-react";
+import { LogOut, LayoutDashboard, X } from "lucide-react";
 import LoginModal from "./LoginModal";
 import {
   type AuthUser,
@@ -28,9 +29,11 @@ function getInitials(name: string): string {
 function ProfileDropdown({
   user,
   onLogout,
+  onDashboard,
 }: {
   user: AuthUser;
   onLogout: () => void;
+  onDashboard: () => void;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -76,6 +79,19 @@ function ProfileDropdown({
               <p className="truncate text-xs text-neutral-400">{user.email}</p>
             </div>
 
+            {/* Dashboard */}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                onDashboard();
+              }}
+              className="cursor-pointer flex w-full items-center gap-2.5 px-4 py-3 text-sm text-neutral-300 transition-colors hover:bg-neutral-800 hover:text-white"
+            >
+              <LayoutDashboard className="size-4" />
+              Dashboard
+            </button>
+
             {/* Logout */}
             <button
               type="button"
@@ -83,7 +99,7 @@ function ProfileDropdown({
                 setOpen(false);
                 onLogout();
               }}
-              className="flex w-full items-center gap-2.5 px-4 py-3 text-sm text-neutral-300 transition-colors hover:bg-neutral-800 hover:text-white"
+              className="cursor-pointer flex w-full items-center gap-2.5 border-t border-neutral-800 px-4 py-3 text-sm text-neutral-300 transition-colors hover:bg-neutral-800 hover:text-white"
             >
               <LogOut className="size-4" />
               Logout
@@ -113,6 +129,11 @@ export default function Navbar() {
     setSessionUser(null);
     setUser(null);
   }, []);
+
+  const navigate = useNavigate();
+  const handleDashboard = useCallback(() => {
+    navigate("/dashboard");
+  }, [navigate]);
 
   return (
     <>
@@ -153,7 +174,11 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: EASE, delay: 0.8 }}
               >
-                <ProfileDropdown user={user} onLogout={handleLogout} />
+                <ProfileDropdown
+                  user={user}
+                  onLogout={handleLogout}
+                  onDashboard={handleDashboard}
+                />
               </motion.div>
             ) : (
               <motion.button
@@ -174,7 +199,11 @@ export default function Navbar() {
           <div className="flex items-center gap-4 md:hidden">
             {/* Mobile: Login button or profile avatar */}
             {user ? (
-              <ProfileDropdown user={user} onLogout={handleLogout} />
+              <ProfileDropdown
+                user={user}
+                onLogout={handleLogout}
+                onDashboard={handleDashboard}
+              />
             ) : (
               <button
                 type="button"
@@ -187,48 +216,135 @@ export default function Navbar() {
 
             <button
               type="button"
-              onClick={() => setMobileOpen(!mobileOpen)}
+              onClick={() => setMobileOpen(true)}
               className="flex flex-col gap-1.5"
-              aria-label="Toggle menu"
+              aria-label="Open menu"
             >
-              <span
-                className={`block h-0.5 w-6 bg-white transition-transform duration-300 ${mobileOpen ? "translate-y-2 rotate-45" : ""}`}
-              />
-              <span
-                className={`block h-0.5 w-6 bg-white transition-opacity duration-300 ${mobileOpen ? "opacity-0" : ""}`}
-              />
-              <span
-                className={`block h-0.5 w-6 bg-white transition-transform duration-300 ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`}
-              />
+              <span className="block h-0.5 w-6 bg-white" />
+              <span className="block h-0.5 w-6 bg-white" />
+              <span className="block h-0.5 w-6 bg-white" />
             </button>
           </div>
         </div>
-
-        <motion.div
-          initial={false}
-          animate={{
-            height: mobileOpen ? "auto" : 0,
-            opacity: mobileOpen ? 1 : 0,
-          }}
-          transition={{ duration: 0.4, ease: EASE }}
-          className="overflow-hidden border-t border-neutral-800/50 bg-[#0A0A0A] md:hidden"
-        >
-          <nav className="px-6 py-6">
-            <div className="flex flex-col gap-4">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-lg text-neutral-300 transition-colors duration-300 hover:text-white"
-                >
-                  {link}
-                </a>
-              ))}
-            </div>
-          </nav>
-        </motion.div>
       </motion.header>
+
+      {/* Mobile sidebar overlay — slides down from top */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-60 bg-black/60 backdrop-blur-sm md:hidden"
+              onClick={() => setMobileOpen(false)}
+            />
+
+            {/* Sidebar panel */}
+            <motion.div
+              initial={{ y: "-100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-100%" }}
+              transition={{ duration: 0.5, ease: EASE }}
+              className="fixed inset-x-0 top-0 z-70 flex flex-col rounded-b-2xl border-b border-neutral-800 bg-[#0A0A0A] px-6 pb-8 pt-6 shadow-2xl md:hidden"
+            >
+              {/* Header row with logo and close button */}
+              <div className="flex items-center justify-between">
+                <a
+                  href="#"
+                  className="text-xl font-bold tracking-tight text-white"
+                >
+                  Alder<span className="align-super text-[10px]">®</span>
+                </a>
+                <motion.button
+                  type="button"
+                  onClick={() => setMobileOpen(false)}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="flex size-9 items-center justify-center rounded-full bg-neutral-800 text-white transition-colors hover:bg-neutral-700"
+                  aria-label="Close menu"
+                >
+                  <X className="size-5" />
+                </motion.button>
+              </div>
+
+              {/* Navigation links */}
+              <nav className="mt-8 flex flex-col gap-2">
+                {NAV_LINKS.map((link, i) => (
+                  <motion.a
+                    key={link}
+                    href={`#${link.toLowerCase()}`}
+                    onClick={() => setMobileOpen(false)}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3, delay: 0.1 + i * 0.06 }}
+                    className="rounded-lg px-3 py-3 text-lg font-medium text-neutral-300 transition-colors hover:bg-neutral-800 hover:text-white"
+                  >
+                    {link}
+                  </motion.a>
+                ))}
+              </nav>
+
+              {/* Bottom action — Login or Dashboard/Logout */}
+              <div className="mt-6 border-t border-neutral-800 pt-6">
+                {user ? (
+                  <div className="flex flex-col gap-2">
+                    <motion.button
+                      type="button"
+                      onClick={() => {
+                        setMobileOpen(false);
+                        handleDashboard();
+                      }}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: 0.4 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="flex items-center gap-2.5 rounded-lg px-3 py-3 text-lg font-medium text-neutral-300 transition-colors hover:bg-neutral-800 hover:text-white"
+                    >
+                      <LayoutDashboard className="size-5" />
+                      Dashboard
+                    </motion.button>
+                    <motion.button
+                      type="button"
+                      onClick={() => {
+                        setMobileOpen(false);
+                        handleLogout();
+                      }}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: 0.46 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="flex items-center gap-2.5 rounded-lg px-3 py-3 text-lg font-medium text-neutral-300 transition-colors hover:bg-neutral-800 hover:text-white"
+                    >
+                      <LogOut className="size-5" />
+                      Logout
+                    </motion.button>
+                  </div>
+                ) : (
+                  <motion.button
+                    type="button"
+                    onClick={() => {
+                      setMobileOpen(false);
+                      setLoginOpen(true);
+                    }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.4 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="w-full rounded-lg bg-white py-3 text-center text-sm font-semibold text-[#0A0A0A] transition-colors hover:bg-neutral-200"
+                  >
+                    Login
+                  </motion.button>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       <LoginModal
         isOpen={loginOpen}
