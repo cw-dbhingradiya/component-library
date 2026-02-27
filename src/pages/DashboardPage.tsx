@@ -1,9 +1,10 @@
-import { useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 import { Sidebar, type TabId, type SidebarTab } from "@/components/Sidebar";
 import { setSessionUser } from "@/lib/utils/auth";
+import LivingRoomPage from "./LivingRoomPage";
 
 /**
  * What: Furniture category tabs for the dashboard sidebar.
@@ -20,9 +21,26 @@ const DASHBOARD_TABS: SidebarTab[] = [
 ];
 
 /**
+ * What: Fade-slide wrapper that animates tab content on switch.
+ * Why: Gives visual continuity when switching between sidebar tabs.
+ */
+function AnimatedTabContent({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="flex flex-1 flex-col"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/**
  * What: Full-screen dashboard layout with a persistent left sidebar.
  * Why: Provides a dedicated authenticated area where users can browse
- *      furniture categories. Content pages are coming soon.
+ *      furniture categories and design furniture with AI tools.
  * What for: Rendered at /dashboard — reached from the profile dropdown.
  */
 export default function DashboardPage() {
@@ -69,20 +87,28 @@ export default function DashboardPage() {
           </h1>
         </header>
 
-        {/* Coming Soon — centred in remaining space */}
-        <div className="flex flex-1 items-center justify-center">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="text-center"
-          >
-            <h2 className="text-3xl font-bold text-gray-900">Coming Soon</h2>
-            <p className="mt-2 text-sm text-gray-500">
-              The <span className="font-medium text-gray-700">{activeLabel}</span> collection is on its way.
-            </p>
-          </motion.div>
+        {/* Tab content — Living Room has its own page, others show placeholder */}
+        <div className="flex flex-1 flex-col overflow-y-auto">
+          <AnimatedTabContent key={activeTab}>
+            {activeTab === "living-room" ? (
+              <LivingRoomPage />
+            ) : (
+              <div className="flex flex-1 items-center justify-center">
+                <div className="text-center">
+                  <h2 className="text-3xl font-bold text-gray-900">
+                    Coming Soon
+                  </h2>
+                  <p className="mt-2 text-sm text-gray-500">
+                    The{" "}
+                    <span className="font-medium text-gray-700">
+                      {activeLabel}
+                    </span>{" "}
+                    collection is on its way.
+                  </p>
+                </div>
+              </div>
+            )}
+          </AnimatedTabContent>
         </div>
       </main>
     </div>
